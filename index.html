@@ -19,35 +19,33 @@
   <input type="text">
   <button>Add crap</button>
   
-  <ul id="list">
-    
-  </ul>
+  <ul id="list"></ul>
   
 <script>
   $( document ).ready(function(){
-    
-    let list = document.getElementById('list');
-    let button = document.querySelector('button');
+    const list = document.getElementById('list');
+    const button = document.querySelector('button');
 
     $.ajax({
-      url: '/stuff',
+      url: '/data',
       type: 'GET'
     })  
-    .then( stuff => {
-      stuff.forEach( QianObj => {
-        list.innerHTML += `<li>${QianObj.name}</li>`
+    .then( data => {
+      data.forEach( dataObj => {
+        list.innerHTML += `<li>${dataObj.name}</li>`
       })
     })
     .catch( err => console.log(err.message))
     
     button.addEventListener('click', function(){
+       const inputVal = document.querySelector('input').value
        $.post({
           url: '/',
-          data: {name: document.querySelector('input').value}
+          data: {name: inputVal }
         })
         .then( name => {
           list.innerHTML += `<li>${name.name}</li>`
-          document.querySelector('input').value = ''
+          inputVal = ''
           document.querySelector('input').focus()
         })
     })

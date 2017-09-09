@@ -6,18 +6,18 @@ const
       app = express();
 
 
-const Qian = db.define('qian', {
+const List = db.define('qian', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
   }
 })
 
-Qian.sync({ force: true })
+List.sync({ force: true })
     .then(() => {
-          Qian.create({name: 'Qian'}),
-          Qian.create({name: 'Jerry'}),
-          Qian.create({name: 'Kaz'})
+          List.create({name: 'Qian'}),
+          List.create({name: 'Jerry'}),
+          List.create({name: 'Kaz'})
     })
 
 app.use(require('morgan')('dev'));
@@ -28,17 +28,17 @@ app.get('/', (req, res, next) => {
   res.sendFile(__dirname + '/index.html')
 });
 
-app.get('/stuff', (req, res, next)=> {
+app.get('/data', (req, res, next)=> {
   Qian.findAll()
-  .then( stuff => {
-    res.send(stuff);
+  .then( data => {
+    res.send(data);
   })
 });
 
 app.post('/', (req, res) => {
-  Qian.create(req.body)
-  .then( nameObj => {
-    res.send(nameObj)
+  List.create(req.body)
+  .then( listObj => {
+    res.send(listObj)
   })
 });
 
