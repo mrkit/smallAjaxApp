@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <style>
     input {
       outline: none;
@@ -17,7 +15,7 @@
   
   <h1>Made It!</h1>
   <input type="text">
-  <button>Add</button>
+  <button>Add Name</button>
   
   <ul id="list"></ul>
   
@@ -38,16 +36,20 @@
     .catch( err => console.log(err.message))
     
     button.addEventListener('click', function(){
-       const inputVal = document.querySelector('input').value
-       $.post({
+       let inputVal = document.querySelector('input').value;
+      
+      $.post({
           url: '/',
           data: {name: inputVal }
         })
         .then( name => {
-          list.innerHTML += `<li>${name.name}</li>`
-          inputVal = ''
-          document.querySelector('input').focus()
+          list.innerHTML += (`<li>${name.name}</li>`);
+          //inputVal doesn't work here..
+          document.querySelector('input').value = '';
+          document.querySelector('input').focus();
         })
+        .catch( err => console.log('error', err));
+      
     })
     
   })

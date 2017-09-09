@@ -29,7 +29,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.get('/data', (req, res, next)=> {
-  Qian.findAll()
+  List.findAll()
   .then( data => {
     res.send(data);
   })
