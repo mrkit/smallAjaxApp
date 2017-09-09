@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <style>
+    input {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>We Made It!</h1>
+  <input type="text">
+  <button>Add crap</button>
+  
+  <ul id="list">
+    
+  </ul>
+  
+<script>
+  $( document ).ready(function(){
+    
+    let list = document.getElementById('list');
+    let button = document.querySelector('button');
+
+    $.ajax({
+      url: '/stuff',
+      type: 'GET'
+    })  
+    .then( stuff => {
+      stuff.forEach( QianObj => {
+        list.innerHTML += `<li>${QianObj.name}</li>`
+      })
+    })
+    .catch( err => console.log(err.message))
+    
+    button.addEventListener('click', function(){
+       $.post({
+          url: '/',
+          data: {name: document.querySelector('input').value}
+        })
+        .then( name => {
+          list.innerHTML += `<li>${name.name}</li>`
+          document.querySelector('input').value = ''
+          document.querySelector('input').focus()
+        })
+    })
+    
+  })
+</script>
+</body>
+</html>
