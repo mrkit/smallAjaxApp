@@ -15,9 +15,9 @@ const List = db.define('qian', {
 
 List.sync({ force: true })
     .then(() => {
-          List.create({name: 'Qian'}),
-          List.create({name: 'Jerry'}),
-          List.create({name: 'Kaz'})
+          List.create({name: 'Name 1'}),
+          List.create({name: 'Name 2'}),
+          List.create({name: 'Name 3'})
     })
 
 app.use(require('morgan')('dev'));
