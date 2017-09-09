@@ -15,9 +15,11 @@ const List = db.define('qian', {
 
 List.sync({ force: true })
     .then(() => {
-          List.create({name: 'Name 1'}),
-          List.create({name: 'Name 2'}),
-          List.create({name: 'Name 3'})
+          Promise.all([
+            List.create({name: 'Name 1'}),
+            List.create({name: 'Name 2'}),
+            List.create({name: 'Name 3'})
+          ])
     })
 
 app.use(require('morgan')('dev'));
